@@ -1,0 +1,222 @@
+/* styles.css */
+body {
+  margin: 0;
+  height: 100vh; 
+  background-image: url("file:///Users/z/Desktop/demo1/public/images/2.png"); /* set image as background */
+  background-repeat: no-repeat;   
+  background-size: cover; /* cover the entire background */
+  background-position: center; /* set image position */
+}
+
+/* screen container */
+.container {
+  position: relative; 
+  height: 100vh; /* set the entire screen as the container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* text input box */
+.red-box {
+  width: 80%;
+  height: 80%; 
+  max-width: 850px; /* max width */
+  padding: 50px; /* 内边距 */
+  background-color: #fff5ae; /* set background color */
+  display: flex; 
+  flex-direction: column; /* arrange elements vertically */
+  justify-content: flex-start; 
+  align-items: center; 
+  border-radius: 10px; /* round edge */
+}
+
+/* date text */
+.year { /* year */
+  font-size: 24px;
+  margin-bottom: 10px; 
+  color: brown;
+}
+
+.maindate {
+  font-size: 20px; 
+  color: brown;
+}
+
+/* date section size */
+.date-navigation {
+  display: inline-flex; 
+  align-items: center; 
+  margin: 10px 0;
+  /* padding: 0 300px; */
+  width: 100%;
+  justify-content: space-around;
+  font-weight: 1000;
+}
+
+/* date changing button */
+.arrow {
+  background-color: transparent;
+  color: rgb(225, 227, 215); 
+  font-size: 20px; 
+  cursor: pointer; /* add cursor transform to indicat selection */
+  margin: 0 10px; 
+}
+
+.textarea {
+  width: 100%; 
+  height: 80%; /* 80% of div */
+  margin: 10px 0; 
+  padding: 10px; 
+  border-radius: 5px; /* round edge */
+  border: 1px solid #ccc; /* set the border color */
+  font-size: 16px; 
+  color: brown; 
+  resize: none; 
+}
+
+/* button */
+.create-button {
+  /* style  the button */
+  background-color: #f6d49e; /* button color */
+  color: brown; /* text color */
+  padding: 10px 20px; 
+  border-radius: 10px; 
+  cursor: pointer; /* add cursor interaction */
+  font-size: 16px; 
+  margin-top: 10px; 
+}
+
+/* scroll bar on the right side */
+.scroll-bar {
+  width: 10px; 
+  height: 80%; 
+  background-color: darkgray; 
+  border-radius: 5px; /* set round edge */
+  margin-left: 20px; 
+  cursor: pointer; /* cursor interaction */
+  position: absolute;
+  right: 0; 
+  top: 10%;
+}
+
+/* dragging the music panel */
+.black-overlay {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  width: 0;
+  height: 90%;
+  background-color: rgb(180, 231, 161); 
+  z-index: 1000; /* set as top layer */
+  display: flex;
+  flex-direction: column;
+  /* align-items: flex-start; */
+  align-items: center;
+  overflow: hidden; /* 防止溢出 */
+  padding-top: 40px;
+}
+
+.close-button {
+  position: absolute; /* static position */
+  top: 10px; 
+  right: 10px; 
+  background-color: transparent; /* only show the cross */
+  border: rebeccapurple; 
+  color: black; 
+  cursor: pointer; /* cursor interaction */
+}
+
+/* set the music window background */
+.item-list {
+  display: flex; 
+  padding: 10px; 
+  padding-bottom: 40px;
+  width: 95%;
+  overflow: auto;
+  margin: 0 auto;
+  background-image: url(file:///Users/z/Desktop/demo1/public/images/1.png);
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.item {
+  background: linear-gradient( /* set the gradient color */
+    160deg,
+    rgb(241 211 225),
+    rgb(241, 235, 202),
+    rgb(190 231 176)
+  );
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  width: 20%; /* reletive widthh */
+  margin: 0 10px; 
+  height: 300px; /* fixed height */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* shadow effect */
+  box-sizing: border-box;
+  display: flex; /* flex layout */
+  flex-direction: column; /* assign elements vertically */
+  padding: 10px; 
+  flex-shrink: 0;
+  position: relative;
+  color: rgb(107, 182, 125);  /* text color */
+}
+
+/* music info */
+.date { /* date size */
+  font-size: 20px; 
+  text-align: center; 
+}
+
+.countdown { /* music length */
+  font-size: 24px; 
+  text-align: center; 
+  margin: 10px 0 100px;
+}
+
+.play-button { /* circle */
+  flex-shrink: 0;
+  width: 80px; /* radius */
+  height: 80px; 
+  border-radius: 50%; /* set to circle */
+  background-color: #bde897; /* button color */
+  border: none; 
+  cursor: pointer; /* cursor interaction */
+  display: flex; 
+  justify-content: center; /* center on the card */
+  align-items: center; 
+  margin: 0 auto; 
+  font-size: 30px; /* font / emoji size */
+  border: 1px solid white;
+}
+
+/* selection buttons */
+.button-bar { /* set the select / delete button group */
+  position: absolute;
+  bottom: -30px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px; 
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* select button */
+.button {
+  background-color: #f6d49e; /* button color */
+  color: brown; 
+  border: none; 
+  padding: 5px 10px;
+  border-radius: 5px; 
+  cursor: pointer; /* cursor interaction */
+  font-size: 14px; /* text size */
+  margin: 0 10px;
+}
+
+/* delete button */
+.delete {
+  background-color: #d3cfcf;
+  color: #e19696;
+}
