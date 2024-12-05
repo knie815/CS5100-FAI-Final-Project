@@ -3,6 +3,10 @@
 ## Overview
 VibeMatch is a web application that detects emotions from user-generated text and recommends music that matches the detected emotional tone. By leveraging Natural Language Processing (NLP) techniques and machine learning models, the system is designed to bridge the gap between textual emotional expression and musical experiences. The application uses a **Word2Vec + Linear Discriminant Analysis (LDA)** pipeline to classify emotions, providing both high performance and computational efficiency.
 
+/models - contains the workings of the models which were tried
+/datasets - contains the datasets used
+/main - contains the final working of the model integrated with the frontend and backend
+
 ## Features
 - **Real-time Emotion Detection**: Detects emotions from user input (e.g., stories or narratives).
 - **Emotion-based Music Recommendations**: Recommends music that aligns with the detected emotions.
