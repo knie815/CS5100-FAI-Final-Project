@@ -20,17 +20,16 @@ from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.utils import to_categorical
 import tensorflow as tf
 
-# Download necessary NLTK data
+
 nltk.download('stopwords')
 nltk.download('punkt')
 
-# Load dataset
-data = pd.read_csv('processed_emotions_dataset_2.csv', index_col=0)
-data = data.dropna()  # Drop missing values
-docs = data['text']  # Text column from dataset
-labels = data['label']  # Labels (emotions)
 
-# Define stopwords and additional custom stopwords
+data = pd.read_csv('processed_emotions_dataset_2.csv', index_col=0)
+data = data.dropna()  
+docs = data['text']  
+labels = data['label']  
+
 stop_words = set(stopwords.words('english'))
 negation_words = ['not', "don't", 'no', 'never', "can't", "won't"]
 additional_stopwords = {
@@ -43,44 +42,36 @@ additional_stopwords = {
 }
 stop_words.update(additional_stopwords)
 
-# Preprocessing function for tokenization and filtering
 def preprocess_text(text):
     tokens = word_tokenize(text.lower())
     filtered_tokens = []
     negation = False
     for word in tokens:
         if word in negation_words:
-            negation = not negation  # Flip negation status
-            continue  # Skip the negation word itself
+            negation = not negation  
+            continue  
         if word.isalpha() and word not in stop_words:
             if negation:
-                word = 'not_' + word  # Mark the word as negated
+                word = 'not_' + word 
             filtered_tokens.append(word)
-            negation = False  # Reset negation after the word
+            negation = False 
     return ' '.join(filtered_tokens)
 
-# Preprocess the documents
 preprocessed_docs = [preprocess_text(doc) for doc in docs]
 
-# Tokenization and padding setup
-max_words = 10000  # Maximum number of words in the vocabulary
-max_sequence_length = 100  # Maximum length of each input sequence
+max_words = 10000  
+max_sequence_length = 100  
 
-# Tokenizer to convert text into sequences of integers
 tokenizer = Tokenizer(num_words=max_words)
 tokenizer.fit_on_texts(preprocessed_docs)
 sequences = tokenizer.texts_to_sequences(preprocessed_docs)
 
-# Pad sequences to ensure consistent input size
 X = pad_sequences(sequences, maxlen=max_sequence_length)
 
-# Convert labels to categorical (one-hot encoding)
-y = to_categorical(labels, num_classes=6)  # 6 emotion classes
+y = to_categorical(labels, num_classes=6) 
 
-# Split the data into training and test sets
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Build the CNN model
 model = Sequential()
 model.add(Embedding(input_dim=max_words, output_dim=128, input_length=max_sequence_length))
 model.add(Conv1D(filters=128, kernel_size=5, activation='relu'))
@@ -89,19 +80,15 @@ model.add(Dropout(0.5))
 model.add(Flatten())
 model.add(Dense(128, activation='relu'))
 model.add(Dropout(0.5))
-model.add(Dense(6, activation='softmax'))  # 6 emotions classes
+model.add(Dense(6, activation='softmax')) 
 
-# Compile the model
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-# Train the model
 history = model.fit(X_train, y_train, epochs=5, batch_size=32, validation_data=(X_test, y_test))
 
-# Evaluate the model on the test set
 loss, accuracy = model.evaluate(X_test, y_test)
 print(f"Test accuracy: {accuracy * 100:.2f}%")
 
-# Optional: Make predictions on a new example
 test_text = "I am feeling great today!"
 processed_test_text = preprocess_text(test_text)
 test_sequence = tokenizer.texts_to_sequences([processed_test_text])
